@@ -163,6 +163,9 @@ typedef enum _JASidePanelState {
 @property (nonatomic, assign) BOOL allowLeftSwipe;  // defaults to YES
 @property (nonatomic, assign) BOOL allowRightSwipe; // defaults to YES
 
+// Determines whether or not the panel can be panned over screen bounds
+@property (nonatomic, assign) BOOL sticksToEdges; // defaults to YES
+
 // Containers for the panels.
 @property (nonatomic, strong, readonly) UIView *leftPanelContainer;
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;

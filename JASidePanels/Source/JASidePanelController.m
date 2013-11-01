@@ -80,6 +80,7 @@ static char ja_kvoContext;
 @synthesize allowLeftSwipe = _allowLeftSwipe;
 @synthesize allowRightSwipe = _allowRightSwipe;
 @synthesize pushesSidePanels = _pushesSidePanels;
+@synthesize sticksToEdges = _sticksToEdges;
 
 #pragma mark - Icon
 
@@ -148,6 +149,7 @@ static char ja_kvoContext;
     self.shouldDelegateAutorotateToVisiblePanel = YES;
     self.allowRightSwipe = YES;
     self.allowLeftSwipe = YES;
+    self.sticksToEdges = YES;
 }
 
 #pragma mark - UIViewController
@@ -481,6 +483,7 @@ static char ja_kvoContext;
     [view addGestureRecognizer:panGesture];	
 }
 
+
 - (void)_handlePan:(UIGestureRecognizer *)sender {
 	if (!_recognizesPanGesture) {
 		return;
@@ -496,6 +499,16 @@ static char ja_kvoContext;
         CGPoint translate = [pan translationInView:self.centerPanelContainer];
         CGRect frame = _centerPanelRestingFrame;
         frame.origin.x += roundf([self _correctMovement:translate.x]);
+                
+        if(self.state == JASidePanelLeftVisible) {
+            
+            if(frame.origin.x < 0 && _sticksToEdges) {
+                
+                frame.origin.x = 0;
+                
+            }
+            
+        }
         
         if (self.style == JASidePanelMultipleActive) {
             frame.size.width = self.view.bounds.size.width - frame.origin.x;
