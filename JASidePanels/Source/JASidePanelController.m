@@ -516,6 +516,8 @@ static char ja_kvoContext;
         
         self.centerPanelContainer.frame = frame;
         
+        [self centerPanelMoved:frame.origin.x];
+        
         // if center panel has focus, make sure correct side panel is revealed
         if (self.state == JASidePanelCenterVisible) {
             if (frame.origin.x > 0.0f) {
@@ -542,6 +544,12 @@ static char ja_kvoContext;
         }
     }
 }
+
+- (void)centerPanelMoved:(CGFloat)currentX {}
+
+- (void)centerPanelWillAnimateFromFrame:(CGRect)currentFrame
+                                toFrame:(CGRect)newFrame
+                           withDuration:(CGFloat)duration {}
 
 - (void)_completePan:(CGFloat)deltaX {
     switch (self.state) {
@@ -751,6 +759,9 @@ static char ja_kvoContext;
     }
     
     CGFloat duration = [self _calculatedDuration];
+    
+    [self centerPanelWillAnimateFromFrame:self.centerPanelContainer.frame toFrame:_centerPanelRestingFrame withDuration:duration];
+    
     [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear|UIViewAnimationOptionLayoutSubviews animations:^{
         self.centerPanelContainer.frame = _centerPanelRestingFrame;
         [self styleContainer:self.centerPanelContainer animate:YES duration:duration];
