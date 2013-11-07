@@ -493,6 +493,9 @@ static char ja_kvoContext;
         UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)sender;
         
         if (pan.state == UIGestureRecognizerStateBegan) {
+            
+            [self willStartMovePanel];
+            
             _locationBeforePan = self.centerPanelContainer.frame.origin;
         }
         
@@ -550,6 +553,8 @@ static char ja_kvoContext;
 - (void)centerPanelWillAnimateFromFrame:(CGRect)currentFrame
                                 toFrame:(CGRect)newFrame
                            withDuration:(CGFloat)duration {}
+
+- (void)willStartMovePanel {}
 
 - (void)_completePan:(CGFloat)deltaX {
     switch (self.state) {

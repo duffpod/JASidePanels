@@ -64,6 +64,7 @@ typedef enum _JASidePanelState {
 
 - (void)centerPanelMoved:(CGFloat)currentX;
 - (void)centerPanelWillAnimateFromFrame:(CGRect)currentFrame toFrame:(CGRect)newFrame withDuration:(CGFloat)duration;
+- (void)willStartMovePanel;
 
 #pragma mark - Look & Feel
 
